@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/joaonsantos/interpreter/lexer"
-	"github.com/joaonsantos/interpreter/token"
+	"github.com/joaonsantos/zero-lexer/lexer"
+	"github.com/joaonsantos/zero-lexer/token"
 )
 
 func TestNextToken(t *testing.T) {

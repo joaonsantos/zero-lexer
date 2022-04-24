@@ -1,12 +1,12 @@
-package repl
+package rlpl
 
 import (
 	"bufio"
 	"fmt"
 	"io"
 
-	"github.com/joaonsantos/interpreter/lexer"
-	"github.com/joaonsantos/interpreter/token"
+	"github.com/joaonsantos/zero-lexer/lexer"
+	"github.com/joaonsantos/zero-lexer/token"
 )
 
 const prompt = ">> "

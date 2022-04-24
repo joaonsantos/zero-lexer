@@ -1,4 +1,4 @@
-module github.com/joaonsantos/interpreter
+module github.com/joaonsantos/zero-lexer
 
 go 1.18
 

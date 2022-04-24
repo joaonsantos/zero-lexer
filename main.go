@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/joaonsantos/interpreter/repl"
+	"github.com/joaonsantos/zero-lexer/rlpl"
 )
 
 func main() {
-	fmt.Println("Welcome to the Zero REPL")
-	repl.Start(os.Stdin, os.Stdout)
+	fmt.Println("Welcome to the zero rlpl!")
+	rlpl.Start(os.Stdin, os.Stdout)
 }
