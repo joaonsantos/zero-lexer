@@ -80,7 +80,7 @@ Welcome to the zero rlpl!
 {Type:ASSIGN Value:}
 {Type:RET Value:}
 {Type:INTEGER Value:2}
-{Type:ILLEGAL Value:}
+{Type:GT Value:}
 {Type:INTEGER Value:1}
 {Type:SCOLON Value:}
 
@@ -91,7 +91,7 @@ Welcome to the zero rlpl!
 {Type:IDENT Value:if}
 {Type:LPAREN Value:}
 {Type:IDENT Value:y}
-{Type:ILLEGAL Value:}
+{Type:GT Value:}
 {Type:INTEGER Value:0}
 {Type:RPAREN Value:}
 {Type:LBRACE Value:}

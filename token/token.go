@@ -17,6 +17,8 @@ const (
 	MINUS
 	DIV
 	MULT
+	GT
+	LT
 
 	// Delimiters
 	COLON
@@ -66,6 +68,10 @@ func (t TokenType) String() string {
 		return "DIV"
 	case MULT:
 		return "MULT"
+	case GT:
+		return "GT"
+	case LT:
+		return "LT"
 	case COLON:
 		return "COLON"
 	case SCOLON:
