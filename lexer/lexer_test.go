@@ -192,6 +192,17 @@ func TestNextToken(t *testing.T) {
 				},
 			},
 		},
+		{
+			name: "ex4",
+			in: `
+			// some comment
+				`,
+			exp: []token.Token{
+				{
+					Type: token.EOF,
+				},
+			},
+		},
 	}
 
 	for _, tc := range tt {

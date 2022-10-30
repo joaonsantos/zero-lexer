@@ -5,13 +5,13 @@ import (
 )
 
 type Lexer struct {
-	source      string
-	sourceLen   int  // the length of the source input
-	currPos     int  // current position in source
-	currReadPos int  // next position that will be read
-	char        byte // char currPos points to
-	row         int  // current row
-	column      int  // current column
+	source    string
+	sourceLen int  // the length of the source input
+	currPos   int  // current position in source
+	readPos   int  // next position that will be read
+	char      byte // char currPos points to
+	row       int  // current row
+	column    int  // current column
 
 }
 
@@ -36,7 +36,18 @@ func (l *Lexer) NextToken() token.Token {
 	case '-':
 		tok = newToken(token.MINUS)
 	case '/':
-		tok = newToken(token.DIV)
+		if l.peekChar() == '/' {
+			// skip over comments
+			l.readChar()
+			l.eatComment()
+
+			// must check EOF, in the edge case the program ends with a comment
+			if isAtEOF(l.readPos, l.sourceLen) {
+				tok = newToken(token.EOF)
+			}
+		} else {
+			tok = newToken(token.DIV)
+		}
 	case '>':
 		tok = newToken(token.GT)
 	case '<':
@@ -112,23 +123,38 @@ func (l *Lexer) readIdentifier() string {
 }
 
 func (l *Lexer) readChar() {
-	if isAtEOF(l.currReadPos, l.sourceLen) {
+	if isAtEOF(l.readPos, l.sourceLen) {
 		l.char = 0
 		return
 	}
 	if isNewline(l.char) {
 		l.column++
 	}
-	l.char = l.source[l.currReadPos]
-	l.currPos = l.currReadPos
-	l.currReadPos++
+	l.char = l.source[l.readPos]
+	l.currPos = l.readPos
+	l.readPos++
 	l.row++
+}
+
+func (l *Lexer) peekChar() byte {
+	if l.readPos > len(l.source) {
+		return 0
+	}
+	return l.source[l.readPos]
 }
 
 func (l *Lexer) eatWhitespace() {
 	for isWhitespace(l.char) {
 		l.readChar()
 	}
+}
+
+func (l *Lexer) eatComment() {
+	for !isNewline(l.char) {
+		l.readChar()
+	}
+	// read any whitespace on newline
+	l.eatWhitespace()
 }
 
 func isNumber(char byte) bool {
@@ -143,8 +169,8 @@ func isAlphaNumeric(char byte) bool {
 	return isLetter(char) || isNumber(char)
 }
 
-func isAtEOF(currReadPos int, sourceLength int) bool {
-	return currReadPos >= sourceLength
+func isAtEOF(readPos int, sourceLength int) bool {
+	return readPos >= sourceLength
 }
 
 func isWhitespace(char byte) bool {
