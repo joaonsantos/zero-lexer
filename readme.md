@@ -107,3 +107,11 @@ Welcome to the zero rlpl!
 {Type:RBRACE Value:}
 ```
 
+>> let num = 42; // the answer to the ultimate question of life
+{Type:LET Value:}
+{Type:IDENT Value:num}
+{Type:ASSIGN Value:}
+{Type:INTEGER Value:42}
+{Type:SCOLON Value:}
+```
+
