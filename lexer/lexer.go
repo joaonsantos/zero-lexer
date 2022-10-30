@@ -44,7 +44,7 @@ func (l *Lexer) NextToken() token.Token {
 	case '*':
 		tok = newToken(token.MULT)
 	case ',':
-		tok = newToken(token.COLON)
+		tok = newToken(token.COMMA)
 	case ';':
 		tok = newToken(token.SCOLON)
 	case '(':
@@ -104,7 +104,7 @@ func (l *Lexer) readNumber() string {
 
 func (l *Lexer) readIdentifier() string {
 	identifier := ""
-	for isLetter(l.char) {
+	for isAlphaNumeric(l.char) {
 		identifier += string(l.char)
 		l.readChar()
 	}
@@ -137,6 +137,10 @@ func isNumber(char byte) bool {
 
 func isLetter(char byte) bool {
 	return char >= 'a' && char <= 'z' || char >= 'A' && char <= 'Z' || char == '_'
+}
+
+func isAlphaNumeric(char byte) bool {
+	return isLetter(char) || isNumber(char)
 }
 
 func isAtEOF(currReadPos int, sourceLength int) bool {

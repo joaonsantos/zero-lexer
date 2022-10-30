@@ -1,7 +1,6 @@
 package lexer_test
 
 import (
-	"log"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -51,24 +50,19 @@ func TestNextToken(t *testing.T) {
 		{
 			name: "ex2",
 			in: `
-			let add = fn(x,y) {
+			fn add(x, y) {
 				return x + y;
 			};
 				`,
 			exp: []token.Token{
 				{
-					Type: token.LET,
+					Type: token.FN,
 				},
 				{
 					Type:  token.IDENT,
 					Value: "add",
 				},
-				{
-					Type: token.ASSIGN,
-				},
-				{
-					Type: token.FN,
-				},
+
 				{
 					Type: token.LPAREN,
 				},
@@ -77,7 +71,7 @@ func TestNextToken(t *testing.T) {
 					Value: "x",
 				},
 				{
-					Type: token.COLON,
+					Type: token.COMMA,
 				},
 				{
 					Type:  token.IDENT,
@@ -122,7 +116,7 @@ func TestNextToken(t *testing.T) {
 			in: `
 			let x = 1;
 			let y = 2;
-			let result = add(x, y);
+			let result = add2(x, y);
 				`,
 			exp: []token.Token{
 				{
@@ -171,7 +165,7 @@ func TestNextToken(t *testing.T) {
 				},
 				{
 					Type:  token.IDENT,
-					Value: "add",
+					Value: "add2",
 				},
 				{
 					Type: token.LPAREN,
@@ -181,7 +175,7 @@ func TestNextToken(t *testing.T) {
 					Value: "x",
 				},
 				{
-					Type: token.COLON,
+					Type: token.COMMA,
 				},
 				{
 					Type:  token.IDENT,
@@ -202,19 +196,17 @@ func TestNextToken(t *testing.T) {
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			tokens := []token.Token{}
 			l := lexer.New(tc.in)
+
 			for i := 0; i < len(tc.exp); i++ {
 				token := l.NextToken()
-				tokens = append(tokens, token)
 
 				if !cmp.Equal(token, tc.exp[i]) {
 					if diff := cmp.Diff(token, tc.exp[i]); diff != "" {
-						t.Errorf("test[%d] - NextToken() mismatch (+want -got): \n%s", i, diff)
+						t.Errorf("NextToken() mismatch (+want -got): \n%s", diff)
 					}
 				}
 			}
-			log.Printf("%+v", tokens)
 		})
 	}
 }

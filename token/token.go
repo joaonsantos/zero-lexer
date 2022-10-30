@@ -21,7 +21,7 @@ const (
 	LT
 
 	// Delimiters
-	COLON
+	COMMA
 	SCOLON
 
 	LPAREN
@@ -35,17 +35,9 @@ const (
 	FN
 )
 
-var keywords = map[string]TokenType{
-	"fn":     FN,
-	"return": RET,
-	"let":    LET,
-}
-
-func LookupType(word string) (TokenType, bool) {
-	if keywordType, ok := keywords[word]; ok {
-		return keywordType, true
-	}
-	return IDENT, false
+type Token struct {
+	Type  TokenType
+	Value string
 }
 
 func (t TokenType) String() string {
@@ -72,8 +64,8 @@ func (t TokenType) String() string {
 		return "GT"
 	case LT:
 		return "LT"
-	case COLON:
-		return "COLON"
+	case COMMA:
+		return "COMMA"
 	case SCOLON:
 		return "SCOLON"
 	case LPAREN:
@@ -94,7 +86,15 @@ func (t TokenType) String() string {
 	return "UNRECOGNIZED"
 }
 
-type Token struct {
-	Type  TokenType
-	Value string
+var keywordsMap = map[string]TokenType{
+	"fn":     FN,
+	"return": RET,
+	"let":    LET,
+}
+
+func LookupType(word string) (TokenType, bool) {
+	if keywordType, ok := keywordsMap[word]; ok {
+		return keywordType, true
+	}
+	return IDENT, false
 }
