@@ -203,6 +203,201 @@ func TestNextToken(t *testing.T) {
 				},
 			},
 		},
+		{
+			name: "ex5",
+			in: `
+			let a = 1;
+			let b = 2;
+			if (a == b) { return 0; }
+			if (a != b) { return 1; }
+			if (a >= b) { return 0; }
+			if (a <= b) { return 1; }
+				`,
+			exp: []token.Token{
+				{
+					Type: token.LET,
+				},
+				{
+					Type:  token.IDENT,
+					Value: "a",
+				},
+				{
+					Type: token.ASSIGN,
+				},
+				{
+					Type:  token.INTEGER,
+					Value: "1",
+				},
+				{
+					Type: token.SCOLON,
+				},
+				{
+					Type: token.LET,
+				},
+				{
+					Type:  token.IDENT,
+					Value: "b",
+				},
+				{
+					Type: token.ASSIGN,
+				},
+				{
+					Type:  token.INTEGER,
+					Value: "2",
+				},
+				{
+					Type: token.SCOLON,
+				},
+				{
+					Type: token.IF,
+				},
+				{
+					Type: token.LPAREN,
+				},
+				{
+					Type:  token.IDENT,
+					Value: "a",
+				},
+				{
+					Type: token.EQ,
+				},
+				{
+					Type:  token.IDENT,
+					Value: "b",
+				},
+				{
+					Type: token.RPAREN,
+				},
+				{
+					Type: token.LBRACE,
+				},
+				{
+					Type: token.RET,
+				},
+				{
+					Type:  token.INTEGER,
+					Value: "0",
+				},
+				{
+					Type: token.SCOLON,
+				},
+				{
+					Type: token.RBRACE,
+				},
+				{
+					Type: token.IF,
+				},
+				{
+					Type: token.LPAREN,
+				},
+				{
+					Type:  token.IDENT,
+					Value: "a",
+				},
+				{
+					Type: token.NE,
+				},
+				{
+					Type:  token.IDENT,
+					Value: "b",
+				},
+				{
+					Type: token.RPAREN,
+				},
+				{
+					Type: token.LBRACE,
+				},
+				{
+					Type: token.RET,
+				},
+				{
+					Type:  token.INTEGER,
+					Value: "1",
+				},
+				{
+					Type: token.SCOLON,
+				},
+				{
+					Type: token.RBRACE,
+				},
+				{
+					Type: token.IF,
+				},
+				{
+					Type: token.LPAREN,
+				},
+				{
+					Type:  token.IDENT,
+					Value: "a",
+				},
+				{
+					Type: token.GTE,
+				},
+				{
+					Type:  token.IDENT,
+					Value: "b",
+				},
+				{
+					Type: token.RPAREN,
+				},
+				{
+					Type: token.LBRACE,
+				},
+				{
+					Type: token.RET,
+				},
+				{
+					Type:  token.INTEGER,
+					Value: "0",
+				},
+				{
+					Type: token.SCOLON,
+				},
+				{
+					Type: token.RBRACE,
+				},
+
+				{
+					Type: token.IF,
+				},
+				{
+					Type: token.LPAREN,
+				},
+				{
+					Type:  token.IDENT,
+					Value: "a",
+				},
+				{
+					Type: token.LTE,
+				},
+				{
+					Type:  token.IDENT,
+					Value: "b",
+				},
+				{
+					Type: token.RPAREN,
+				},
+				{
+					Type: token.LBRACE,
+				},
+				{
+					Type: token.RET,
+				},
+				{
+					Type:  token.INTEGER,
+					Value: "1",
+				},
+				{
+					Type: token.SCOLON,
+				},
+				{
+					Type: token.RBRACE,
+				},
+				{
+					Type: token.EOF,
+				},
+			},
+		},
 	}
 
 	for _, tc := range tt {

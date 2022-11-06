@@ -17,8 +17,13 @@ const (
 	MINUS
 	DIV
 	MULT
+
+	EQ
+	NE
 	GT
+	GTE
 	LT
+	LTE
 
 	// Delimiters
 	COMMA
@@ -33,6 +38,7 @@ const (
 	LET
 	RET
 	FN
+	IF
 )
 
 type Token struct {
@@ -60,10 +66,18 @@ func (t TokenType) String() string {
 		return "DIV"
 	case MULT:
 		return "MULT"
+	case EQ:
+		return "EQ"
+	case NE:
+		return "NE"
 	case GT:
 		return "GT"
+	case GTE:
+		return "GTE"
 	case LT:
 		return "LT"
+	case LTE:
+		return "LTE"
 	case COMMA:
 		return "COMMA"
 	case SCOLON:
@@ -82,6 +96,8 @@ func (t TokenType) String() string {
 		return "RET"
 	case FN:
 		return "FN"
+	case IF:
+		return "IF"
 	}
 	return "UNRECOGNIZED"
 }
@@ -90,6 +106,7 @@ var keywordsMap = map[string]TokenType{
 	"fn":     FN,
 	"return": RET,
 	"let":    LET,
+	"if":     IF,
 }
 
 func LookupType(word string) (TokenType, bool) {
